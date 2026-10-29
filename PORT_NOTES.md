@@ -92,6 +92,23 @@ The `clock` entry matters: with `use_sim_time: true`, ROS nodes wait for the sim
 - `CMakeLists.txt`: the `params` folder is now installed alongside `description`, `launch` and `worlds`, so the launch file can find `gz_bridge.yaml`.
 - `package.xml`: added `ros_gz_sim`, `ros_gz_bridge` and `ros_gz_image` as `exec_depend`.
 
+### 9. Launch arguments
+
+`rsp_sim_gz.launch.py` takes three arguments, so the simulation can be changed without editing the file:
+
+| Argument | Default | What it does |
+|---|---|---|
+| `use_sim_time` | `true` | Use Gazebo's simulated clock (`true`) or the system clock (`false`) |
+| `world` | `gz_empty.sdf` | World file name, looked up in this package's `worlds/` folder |
+| `robot_name` | `my_bot` | Name given to the robot when it is spawned in Gazebo |
+
+```bash
+ros2 launch urdf_example rsp_sim_gz.launch.py world:=my_world.sdf robot_name:=bot2
+```
+
+To add a world, put an `.sdf` file in `worlds/` and rebuild so it is installed.
+Run `ros2 launch urdf_example rsp_sim_gz.launch.py --show-args` to list the arguments.
+
 ## Known gaps
 
 - Depth camera not ported (see section 4).
